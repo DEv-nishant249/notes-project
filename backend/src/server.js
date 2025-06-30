@@ -12,7 +12,7 @@ import rateLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-const current = path.resolve()
+// const current = path.resolve()
 // let path1 = __dirname;
 
 // middleware
@@ -28,11 +28,11 @@ app.use(rateLimiter);
 
 app.use("/api/notes", notesRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.resolve(current, "../frontend/dist")));
+if (process.env.NODE_ENV === "development") {
+  app.use(express.static(path.resolve(__dirname, "frontend/dist")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(current, "../frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
 
